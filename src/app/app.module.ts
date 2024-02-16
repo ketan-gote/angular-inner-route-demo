@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -10,7 +11,22 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule.forChild([
+      { path: '', redirectTo: 'cust', pathMatch: 'full' },
+
+      {
+        path: "cust",
+        loadChildren: () => import("./modules/customer/customer.module").then(m => m.CustomerModule)
+      },
+
+      {
+        path: "network",
+        loadChildren: () => import("./modules/newtworkdevice/networkdevice.module").then(m => m.NetworkDeviceModule)
+      }
+
+
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
